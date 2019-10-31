@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Shopping List</title>
+</head>
+<body>
+  <h1>My shopping list</h1>
+  <div>
+    Enter a new item:
+    <input type="text">
+    <button>Add item</button>
+  </div>
+  <ul>
+  </ul>
+  <script>
+    const input = document.querySelector('input')
+    const button = document.querySelector('button')
+    const list = document.querySelector('ul')
+
+    button.addEventListener('click', function(event){
+      const text = input.value
+      if (!text){
+        console.log('아무것도 없어')
+        alert('공백입니다.')
+        return 
+      }
+      
+      input.value = ''
+      const item = document.createElement('li')
+      item.innerText = text
+
+      //삭제하기 버튼을 만든다 .
+      const deleteButton = document.createElement('button')
+
+      deleteButton.innerText = 'delete'   
+
+      deleteButton.addEventListener('click', function(event){
+        item.remove()
+      })
+      // console.log(deleteButton)
+      item.appendChild(deleteButton)
+      list.appendChild(item)
+    })
+    
+    // Your code here..
+  </script>
+</body>
+</html>
