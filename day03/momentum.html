@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <title>Momentum</title>
+  <style>
+    html, body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+    }
+    
+    #to-do {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      font-size: 30px;
+      font-weight: bold;
+      color: white;
+      background: none;
+      border:0;
+      padding:0;
+    }
+
+    #to-do-today {
+      position: absolute;
+      bottom: 50px; right: 10px;
+      background-color: black;
+      opacity: 0.8;
+      border-radius:5%;
+      color:white;
+      height: 150px, auto;
+      width: auto, 250px;
+      visibility: hidden;
+      /* visibility: visible; */
+    }
+    #to-do-input{
+      position: relative; 
+      bottom:10px; 
+      width: auto;
+      left: 0; right: 0;
+      text-align: center; 
+      background-color: black; 
+      border-left-width: 0;
+      border-right-width: 0;
+      border-top-width: 0;
+      margin-top: 15px;
+      border-bottom-color: white;
+      color: white;
+    }
+    #add-to-do{
+      position: relative; 
+      bottom:10px; 
+      right: 0;
+      text-align: center; 
+      background-color: black; 
+      border:0;
+      color: white;
+    }
+    #weather{
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 30px;
+      font-weight: bold;
+      color: white;
+      background: none;
+      border:0;
+      padding:0;
+    }
+  </style>
+</head>
+<body>
+  <span id="now-time"></span>
+  <button id="to-do">Todo</button>
+  <span id="to-do-today">
+    <span style="font-weight: bold; position: relative; left:20px; top:10px;">Today</span>
+    <ul id="today-list">
+    </ul>
+    <input type="text" id="to-do-input" >
+    <button id="add-to-do">Add</button>
+  </span>
+  <span id="weather">
+
+  </span>
+
+
+  
+  <script>
+    const body = document.querySelector('body')
+    const BG_URL = 'https://source.unsplash.com/1920x1080/?nature,water'
+    axios.get(BG_URL).then( function(response){
+      const bgUrl = response.request.responseURL
+      console.log(response.request.responseURL)
+      body.style.backgroundImage = `url(${bgUrl})`
+    })
+
+    const nowTime = document.querySelector('#now-time')
+    nowTime.style.position = 'absolute'
+    nowTime.style.top = '35%'
+    nowTime.style.left = '35%'
+    nowTime.style.color = 'white'
+    nowTime.style.fontSize = '100px'
+    nowTime.style.fontWeight = 'bold'
+
+    setInterval(function(){
+      nowTime.innerText = new Date().toLocaleTimeString()
+    }, 1000)
+
+    const toDo = document.querySelector('#to-do')
+    const toDoToday = document.querySelector('#to-do-today')
+    const todayList = document.querySelector('#today-list')
+    if (toDoToday)
+
+    toDo.addEventListener('click', function() {
+      if (toDoToday.style.visibility === "hidden"){
+        toDoToday.style.visibility = "visible"
+      }
+      else{
+        toDoToday.style.visibility = "hidden"
+      }
+    })
+    
+    const inputBtn = document.querySelector('#add-to-do')
+    inputBtn.addEventListener('click', function(){
+      const item = document.createElement('li')
+      const input = document.querySelector('#to-do-input')
+      item.innerText = input.value
+      todayList.appendChild(item)
+    })
+    
+    const WEATER_API_URL = 'http://api.openweathermap.org/data/2.5/weather?q=Seoul,KR&APPID=cb5b4ab8957d35f370cc1bdd030b1cca'
+    const weather = document.querySelector('#weather')
+    axios.get(WEATER_API_URL).then( function(response){
+      const temper = Math.round(response.data.main.temp - 273.15) + '도'
+      weather.innerText = '서울 ' + temper
+    })
+
+  </script>
+</body>
+</html>
