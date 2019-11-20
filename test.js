@@ -1,3 +1,4 @@
+let p = 0
 function myFunction1 () {
     for(p=0; p < 1; p++) {
         console.log(p)
@@ -6,4 +7,4 @@ function myFunction1 () {
 }
 myFunction1()
 console.log(p) // 확인
-console.log(window.p) // 확인
+// console.log(window.p) // 확인

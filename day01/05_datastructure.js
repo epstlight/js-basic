@@ -63,4 +63,6 @@ const me = {
 
 // JSON
 const jsonData = JSON.stringify(me)       // 직렬화 => JS Object 를 String 값으로
+console.log(jsonData)
 const parsedData = JSON.parse(jsonData)   // 역직렬화 => String 을 JS Object 로
+console.log(parsedData)
